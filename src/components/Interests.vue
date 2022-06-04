@@ -1,55 +1,73 @@
+<script setup>
+import InterestItem from "./InterestItem.vue";
+</script>
+
+<script type="module">
+export default {
+	data() {
+		return {
+			items: [],
+			selectedItems: []
+		}
+	},
+	methods: {
+		getAll() {
+			fetch("https://buddy4study.herokuapp.com/interest/get-all", {
+				method: "GET"
+			})
+			.then(response => response.json())
+			.then(data => {
+				for(let i=0; i<data.length; i++) {
+					this.items.push(data[i]);
+				}
+			})
+		},
+		select(e) {
+			let element = e.currentTarget;
+			let el_id = element.getAttribute("data-id");
+			if (!this.selectedItems.includes(el_id)) {
+				element.classList.add("interest-clicked");
+				this.selectedItems.push(el_id);
+			} else {
+				element.classList.remove("interest-clicked");
+				let index = this.selectedItems.indexOf(el_id);
+				this.selectedItems.splice(index, 1);
+			}
+		},
+		sendInterests() {
+			let arr = Object.values(this.selectedItems);
+			fetch("https://buddy4study.herokuapp.com/user/add-interest", {
+				method: "POST",
+				headers: {
+					"token": localStorage.getItem("user-token"),
+				},
+				body: arr,
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+			})
+		}
+	},
+	mounted: function() {
+		this.getAll();
+	}
+}
+</script>
+
 <template>
 	<div class="container">
 		<div class="title">
 			<h1>Choose Your Interests:</h1>
 		</div>
 		<div class="wrapper">
-			<div class="interest">
-				<p>💻 Programming</p>
-			</div>
-			<div class="interest">
-				<p>🎨 Drawing</p>
-			</div>
-			<div class="interest">
-				<p>😎 Mathematics</p>
-			</div>
-			<div class="interest">
-				<p>😏 Physics</p>
-			</div>
-			<div class="interest">
-				<p>⭐️ Astronomy</p>
-			</div>
-			<div class="interest">
-				<p>🌱 Biology</p>
-			</div>
-			<div class="interest">
-				<p>💪 English</p>
-			</div>
-			<div class="interest">
-				<p>🙂 Philosophy</p>
-			</div>
-			<div class="interest">
-				<p>📖 Literature</p>
-			</div>
-			<div class="interest">
-				<p>💼️ Economics</p>
-			</div>
-			<div class="interest">
-				<p>💊 Chemistry</p>
-			</div>
-			<div class="interest">
-				<p>🤴 History</p>
-			</div>
-			<div class="interest">
-				<p>🇺🇿 Uzbek</p>
-			</div>
-			<div class="interest">
-				<p>🇷🇺 Russian</p>
+			<div class="interest" v-on:click="select" v-for="item in items" :key="item.id" :data-id="item.id">
+				<p>{{ item.name }}</p>
 			</div>
 		</div>
 	</div>
 	<div class="next-button">
-		<button class="btn btn-lg finish-btn text-white">Finish</button>
+		<button class="btn btn-lg finish-btn text-white" v-on:click="sendInterests">Finish</button>
 	</div>
 </template>
 
@@ -83,6 +101,17 @@
 	border-radius: 7px;
 	margin: 5px;
 	text-align: center;
+	padding: 10px;
+	font-size: 20px;
+}
+.wrapper .interest:hover {
+	background-color: var(--bs-main-color-darken);
+}
+.wrapper .interest p {
+	margin: auto;
+}
+.wrapper .interest-clicked {
+	background: var(--bs-main-color-darken);
 }
 .next-button {
 	width: 100%;

@@ -11,3 +11,9 @@ import Header from "@/components/Header.vue";
     <Welcome />
   </main>
 </template>
+
+<style scoped>
+main {
+  padding: 50px 0px;
+}
+</style>

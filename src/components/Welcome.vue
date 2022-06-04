@@ -18,14 +18,12 @@ import SupportIcon from "./icons/IconSupport.vue";
     <a target="_blank" href="https://vuejs.org/">official documentation</a>
     provides you with all information you need to get started.
   </WelcomeItem> -->
-  <div class="container-fluid py-5">
+  <div class="container py-5 wrapper">
     <div class="row">
       <div class="col-xl-6 col-lg-6 col-md-6 m-auto text-center">
         <h1>Find your buddy for the study!</h1>
         <p class="lead">We provide an easy way to find & create study groups.</p>
-        <button class="btn btn-lg signup-btn">
-          <a href="/register">Get Started</a>
-        </button>
+        <a class="btn btn-lg signup-btn">Get Started</a>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6" >
         <img src="../assets/landing.png" class="img-fluid">
@@ -35,11 +33,16 @@ import SupportIcon from "./icons/IconSupport.vue";
 </template>
 
 <style scoped>
+.wrapper {
+  color: #fff;
+}
 .signup-btn {
   background: var(--bs-main-color);
+  color: #fff;
 }
 .signup-btn:hover {
   background: var(--bs-main-color-darken);
+  color: #fff;
 }
 .signup-btn a {
   color: var(--bs-white);

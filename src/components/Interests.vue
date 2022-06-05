@@ -40,12 +40,15 @@ export default {
 				method: "POST",
 				headers: {
 					"token": localStorage.getItem("user-token"),
+                    'Content-Type': "application/json",
 				},
-				body: arr,
+				body: JSON.stringify({
+					"data": arr,
+				}),
 			})
 			.then(response => response.json())
 			.then(data => {
-				console.log(data);
+				this.$router.push({ name: "main" });
 			})
 		}
 	},

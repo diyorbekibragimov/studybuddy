@@ -95,6 +95,39 @@ const router = createRouter({
           return {name: "login"}
         }
       }
+    },
+    {
+      path: "/study-group/create",
+      name: "create_study_group",
+      component: () => import("../views/CreateGroup.vue"),
+      beforeEnter: async (to, from) => {
+        let v = await isAuthenticated(localStorage.getItem("user-token")).then(response => {return response});
+        if(v == 401) {
+          return {name: "login"}
+        }
+      }
+    },
+    {
+      path: "/study-group/:id",
+      name: "group_info",
+      component: () => import("../views/GroupInfo.vue"),
+      beforeEnter: async (to, from) => {
+        let v = await isAuthenticated(localStorage.getItem("user-token")).then(response => {return response});
+        if(v == 401) {
+          return {name: "login"}
+        }
+      }
+    },
+    {
+      path: "/user/get-info",
+      name: "user_info",
+      component: () => import ("../views/UserInfo.vue"),
+      beforeEnter: async (to, from) => {
+        let v = await isAuthenticated(localStorage.getItem("user-token")).then(response => {return response});
+        if(v == 401) {
+          return {name: "login"}
+        }
+      }
     }
   ],
 });

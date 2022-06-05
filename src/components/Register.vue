@@ -28,9 +28,10 @@
 								"password": this.password,
 							})
 						})
-						.then(response => response.json())
+						.then(response => response.text())
 						.then(data => {
-							if(data == true) {
+							if(data.includes("StudyBuddy"))  {
+								localStorage.setItem("user-token", data);
 								this.$router.push({ name: "interests" })
 							} else {
 								this.errors = "Fill all fields";

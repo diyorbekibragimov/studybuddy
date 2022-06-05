@@ -1,8 +1,12 @@
 <script type="module">
+
 export default {
     data() {
         return {
             firstName: "",
+            searchText: "",
+            interests: [],
+            categorySelected: [],
         }
     },
     methods: {
@@ -15,12 +19,23 @@ export default {
             .then(response => response.json())
             .then(data => {
                 this.firstName = data["firstName"];
-                console.log(data);
             })
+        },
+        getInterests() {
+          fetch("https://buddy4study.herokuapp.com/user/get-info", {
+            headers: {
+              "token": localStorage.getItem("user-token"),
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            this.interests = Object.values(data['interests']);
+          })
         }
     },
     mounted: function () {
         this.getName();
+        this.getInterests();
     }
 }
 </script>
@@ -36,13 +51,10 @@ export default {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/how-it-works">How it works</a>
+          <a class="nav-link" href="/study-group/create">Create study group</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/user-info">Hello, {{ firstName }}</a>
+          <a class="nav-link" href="/user/get-info">Hello, {{ firstName }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Log out</a>
@@ -74,5 +86,8 @@ export default {
   }
   .nav-item {
     margin-right: 15px;
+  }
+   .search-btn:hover {
+    background: var(--bs-main-color-darken);
   }
 </style>

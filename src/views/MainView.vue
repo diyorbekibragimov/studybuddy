@@ -9,11 +9,25 @@ import RightSide from "@/components/RecommendedGroups.vue";
     <Header />
 </header>
 <main>
-    <div>
-        <LeftSide />
-    </div>
-    <div>
-        <RightSide />
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-6 left">
+                <LeftSide />
+            </div>
+            <div class="col-6 col-lg-6 right">
+                <RightSide />
+            </div>
+        </div>
     </div>
 </main>
 </template>
+
+<style scoped>
+.container {
+    height: 100vh;
+    padding: 50px;
+}
+.container .row {
+    height: 100%;
+}
+</style>

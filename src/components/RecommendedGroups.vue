@@ -74,6 +74,10 @@ export default {
         joinGroup(e) {
             let element = e.currentTarget;
 			let el_id = element.getAttribute("data-id");
+            let child0 = element.children[0];
+            let child1 = element.children[1];
+            child0.classList.add("hidden")
+            child1.classList.remove("hidden");
             fetch(`https://buddy4study.herokuapp.com/user/join-study-group/${el_id}`, {
                 method: "POST",
                 headers: {
@@ -118,7 +122,7 @@ export default {
     },
     mounted: function () {
         this.fetchAllGroups();
-        this.getInterests()
+        this.getInterests();
     }
 }
 </script>
@@ -154,7 +158,12 @@ export default {
             </div>
             <div class="buttons">
                 <a class="btn" :href="'/study-group/'+item.id" style="background: var(--bs-dark); color: white">More</a>
-                <button class="btn ms-3" v-on:click="joinGroup" style="background: var(--bs-green); color: white" :data-id="item.id">Join</button>
+                <button class="btn ms-3" v-on:click="joinGroup" style="background: var(--bs-green); color: white" :data-id="item.id">
+                    <span class="text-join">Join</span>
+                    <div class="spinner-border hidden" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
@@ -162,6 +171,9 @@ export default {
 </template>
 
 <style scoped>
+.hidden {
+    display: none;
+}
 .card {
     background: rgb(83, 90, 168);;
     color: white;

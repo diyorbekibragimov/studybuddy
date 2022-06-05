@@ -97,7 +97,7 @@ export default {
 </script>
 
 <template>
-<div class="container">
+<div class="container ">
     <div class="title">
         <span class="text-muted">Group Name</span>
         <h1>{{ name }}</h1>

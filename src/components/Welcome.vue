@@ -4,7 +4,7 @@
       <div class="col-xl-6 col-lg-6 col-md-6 m-auto text-center">
         <h1>Find your buddy for the study!</h1>
         <p class="lead">We provide an easy way to find & create study groups.</p>
-        <a class="btn btn-lg signup-btn">Get Started</a>
+        <a class="btn btn-lg signup-btn" href="/register">Get Started</a>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6" >
         <img src="../assets/landing.png" class="img-fluid">
